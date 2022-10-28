@@ -1,0 +1,16 @@
+@import '~antd/dist/antd.css';
+
+div .ant-layout{
+  height: 100vh ;
+}
+.footer{
+  background-color: gray;
+  color: white
+}
+.header{
+  background-color: #333;
+  color: aqua;
+}
+/* .sider{  background-color: silver;
+  color: white */
+/* } */
