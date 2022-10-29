@@ -1,8 +1,10 @@
 import './Login.css';
-import { Button, Form, Radio, Space } from 'antd';
-import React, { useState, useRef } from 'react';
+import { Button, Form, Radio, Space, Divider } from 'antd';
+import React, { useState, useRef, useContext } from 'react';
 import SignIn from "./SignIn"
 import SignUp from "./SignUp"
+import {  useNavigate } from "react-router-dom";
+import { LoginContext } from "../../LoginContext";
 
 const layout = {
 
@@ -21,12 +23,44 @@ const tailLayout = {
 };
 function Login() {
   const [loginOrSignup, setloginOrSignup] = useState(true);
+  let navigate = useNavigate();
+  const userContext = useContext(LoginContext)
+  const [error, setError] = useState(false)
+
 
   const formRef = useRef();
 
+  const baseURL = "https://kiyan.ir/api/v1/login";
   const onFinish = (values) => {
-    console.log(values);
-  };
+    let username = values.username;
+    let password = values.password;
+    fetch(baseURL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(
+        {
+          "username": username,
+          "password": password
+        }
+        )
+      })
+      .then(response => response.json())
+      .then(res => {
+        if (res.token) {
+          setError(false);
+          navigate("/");
+          console.log(res.token);
+          userContext.login(username, password, (res.token));
+        } else {
+          setError ((res.error));
+        }
+
+      })
+  }
+  
   const onReset = () => {
     formRef.current.resetFields();
   };
@@ -51,7 +85,7 @@ function Login() {
           </Space>
         </Radio.Group>
       </Form.Item>
-    
+          {error ? <Divider>{error} </Divider> : ""}
           {loginOrSignup ? <SignIn /> : <SignUp />}  
 
       <Form.Item {...tailLayout}>

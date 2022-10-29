@@ -3,9 +3,10 @@ import "./ThemeLayout.css";
 import MenuLeft from "./MenuLeft";
 import { Layout } from "antd";
 import React from "react";
+import { Outlet } from "react-router";
 const { Header, Footer, Sider, Content } = Layout;
 
-function ThemeLayout({children}) {
+function ThemeLayout() {
   return (
     <div className="ThemeLayout">
       <Layout>
@@ -14,7 +15,9 @@ function ThemeLayout({children}) {
         </Sider>
         <Layout>
           <Header className="header">Header</Header>
-          <Content> {children}</Content>
+          <Content>
+            <Outlet />
+          </Content>
           <Footer className="footer">Footer</Footer>
         </Layout>
       </Layout>
