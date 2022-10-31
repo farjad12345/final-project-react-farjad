@@ -7,7 +7,6 @@ function reducer(state, action) {
 
     switch (action.type) {
         case 'login':
-
             const loginUser = {
                 username: action.data,
                 password: action.password,
@@ -19,9 +18,16 @@ function reducer(state, action) {
         case 'logout':
             localStorage.removeItem("user");
             return false;
-        case 'token':
-        
-            return JSON.parse(localStorage.user).token;
+        case 'signup':
+            const signupUser = {
+                username: action.username,
+                firstname: action.firstname,
+                lastname: action.lastname,
+                password: action.password,
+            }
+            // localStorage.setItem("user", JSON.stringify(signupUser))
+
+            return true;
 
         default:
             throw new Error();
@@ -38,7 +44,7 @@ function LoginProvider({ children }) {
         isLogin: state !== false,
         login: (username, password, token) => dispatch({ type: "login", data: username, password: password, token: token }),
         logout: () => dispatch({ type: "logout" }),
-        token: ()=> dispatch({type: "token"})
+        signup: (username, firstname, lastname, password) => dispatch({ type: "signup", username: username, firstname: firstname, lastname: lastname, password: password })
     }
     return (
         <LoginContext.Provider value={userContext}>

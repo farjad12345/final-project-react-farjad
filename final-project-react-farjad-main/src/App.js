@@ -3,7 +3,9 @@ import React from 'react';
 import { useContext } from "react";
 import ThemeLayout from "./ThemeLayout/ThemeLayout";
 import Login from "./pages/Login/Login";
-import Home from "./pages/Home/Home";
+import SignUp from "./pages/Login/SignUp";
+import UserList from "./pages/UserList/UserList";
+import User from "./pages/User/User";
 import { LoginContext } from "./LoginContext";
 
 
@@ -13,7 +15,11 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={userContext.isLogin ? <ThemeLayout /> : <Login />}>
-          <Route index element={<Home />} />
+          <Route index element={<UserList />} />
+          <Route path="login" element={<Login />} />
+          <Route path="user/:userId" element={<User />} />
+          <Route path="signup" element={<SignUp />} />
+
         </Route>
       </Routes>
     </BrowserRouter >

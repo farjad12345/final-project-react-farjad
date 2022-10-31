@@ -4,13 +4,14 @@ div .ant-layout{
   height: 100vh ;
 }
 .footer{
-  background-color: gray;
+  background-color: #03192b;
   color: white
 }
 .header{
-  background-color: #333;
+  background-color: #03192b;
   color: aqua;
+  /* margin: 0 10px; */
 }
-/* .sider{  background-color: silver;
-  color: white */
-/* } */
+.sider{  
+  background-color: rgb(133, 131, 131);
+}

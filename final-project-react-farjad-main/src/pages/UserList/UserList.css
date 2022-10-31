@@ -1,0 +1,23 @@
+
+.userList {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    height: 100%;
+    overflow: scroll;
+    background-color: rgb(207, 201, 201);
+
+}
+  .card-wrapper-userlist{
+    height: 300px;
+width: 48%;
+display: flex;
+justify-content: center;
+padding:10px;
+margin: 10px;
+
+}
+.userList .ant-card-bordered{
+    box-shadow: 3px 3px 7px 10px darkgray;
+    border-radius: 10px;
+}
