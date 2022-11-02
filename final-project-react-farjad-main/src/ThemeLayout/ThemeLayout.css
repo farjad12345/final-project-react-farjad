@@ -5,13 +5,30 @@ div .ant-layout{
 }
 .footer{
   background-color: #03192b;
-  color: white
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  padding: 20px 0 !important;
 }
-.header{
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: #03192b;
-  color: aqua;
-  /* margin: 0 10px; */
+  color: white;
+    padding: 0 40px;
+
 }
-.sider{  
-  background-color: rgb(133, 131, 131);
+.logo {
+   display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  color: white;
+}
+.logo span{
+  margin: 0  10px ;
+
+}
+.bold{
+font-weight: bold;
 }

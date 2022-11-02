@@ -1,0 +1,84 @@
+.gallery
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+flex-direction: column;
+}
+.gallery .container {
+      width: 96%;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+.gallery  h2 {
+  text-align: center;
+  text-transform: uppercase;
+  margin: 8px 0;
+  width: 100%;
+}
+.lates-imgs {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.latest-img {
+  width: 32.5%;
+  height: 270px;
+  margin-bottom: 1.3%;
+  position: relative;
+  overflow: hidden;
+  border: 3px solid #ddd;
+}
+.latest-img:hover:after {
+  position: absolute;
+  top: 100%;
+  left: -100%;
+}
+.latest-img::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: -100%;
+  left: 100%;
+  display: block;
+  background: linear-gradient(
+    transparent,
+    rgba(192, 192, 192, 0.8),
+    transparent
+  );
+  transform: scale(1.1) rotate(45deg);
+  transition: 0.7s;
+}
+
+.latest-img1 {
+  background: rgba(255, 255, 255, 0.5) url("../../../public/images/pic1.jpg") no-repeat
+    center center;
+  background-size: contain;
+}
+.latest-img2 {
+  background: rgba(255, 255, 255, 0.5) url("../../../public/images/pic2.jpg") no-repeat
+    center center;
+  background-size: contain;
+}
+.latest-img3 {
+  background: rgba(255, 255, 255, 0.5) url("../../../public/images/pic3.jpg") no-repeat
+    center center;
+  background-size: contain;
+}
+.latest-img4 {
+  background: rgba(255, 255, 255, 0.5) url("../../../public/images/pic4.jpg") no-repeat
+    center center;
+  background-size: contain;
+}
+.latest-img5 {
+  background: rgba(255, 255, 255, 0.5) url("../../../public/images/pic5.jpg") no-repeat
+    center center;
+  background-size: contain;
+}
+.latest-img6 {
+  background: rgba(255, 255, 255, 0.5) url("../../../public/images/pic6.jpg") no-repeat
+    center center;
+  background-size: contain;
+}

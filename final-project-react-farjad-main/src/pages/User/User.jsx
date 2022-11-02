@@ -9,7 +9,7 @@ function User() {
       const [open, setOpen] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [showEditForm, setshowEditForm] = useState(false);
-    const [modalTextDelete, setmodalTextEdit] = useState(
+    const [modalTextDelete, setmodalTextDelete] = useState(
       "Are you sure you want to DELETE this user?"
     );
   const showModal = () => {
@@ -29,36 +29,18 @@ function User() {
     .then(navigate("/"))
   }
       const handleDeleteOk = () => {
-        modalTextDelete(
+        setmodalTextDelete(
           "The user will be deleted and the modal will be closed after two seconds and return to users page ... "
         );
         setConfirmLoading(true);
         setTimeout(() => {
-
-
-          
-          setOpen(false);
           DeleteAPI()
-          setConfirmLoading(false);
-        }, 2000);
-      };
-  const EditAPI = () => {
-     
-   }
-      const handleEditOk = () => {
-        modalTextDelete(
-          "The user will be edited and the modal will be closed after two seconds and return to users page ... "
-        );
-        setConfirmLoading(true);
-        setTimeout(() => {
-
-
-          
           setOpen(false);
-          EditAPI()
           setConfirmLoading(false);
         }, 2000);
       };
+
+ 
       const handleCancel = () => {
         setOpen(false);
       };
@@ -98,12 +80,7 @@ function User() {
           </p>
           <p>lastname: {user.lastname}</p>
           <Space>
-            <Button
-              type="primary"
-              ghost
-              // onClick={() => setshowEditForm(true)}>
-              onClick={() => setshowEditForm(true)}
-            >
+            <Button type="primary" ghost onClick={() => setshowEditForm(true)}>
               Edit
             </Button>
 
@@ -123,12 +100,10 @@ function User() {
         </Card>
         {showEditForm ? (
           <div className=" show signUp">
-            {" "}
-            <EditUserData cancel={setshowEditForm} />{" "}
+            <EditUserData setshowEditForm={setshowEditForm} />{" "}
           </div>
         ) : (
           <div className=" hide signUp">
-            {" "}
             <EditUserData />{" "}
           </div>
         )}

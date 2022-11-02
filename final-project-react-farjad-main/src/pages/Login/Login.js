@@ -3,6 +3,7 @@ import { Button, Form, Input, Space, Divider } from 'antd';
 import React, { useState, useRef, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import { LoginContext } from "../../LoginContext";
+import { useLoginUser } from "../../Components/Hook/UseAPi";
 
 const layout = {
 
@@ -21,59 +22,35 @@ const tailLayout = {
 };
 
 function Login() {
+  let username, password
   let navigate = useNavigate();
   const userContext = useContext(LoginContext)
   const [error, setError] = useState(false)
-
-
+  
+  
   const formRef = useRef();
-  const baseURL =  "https://kiyan.ir/api/v1" 
-  const onFinish = (values) => {
+  
+  // const ApiGetUsers = useLoginUser("kiyan","kiyan")
+  const  OnFinish=(values)=> {
     let username = values.username;
-    let password = values.password;
-
-    fetch('https://kiyan.ir/api/v1/login', {
-      method: 'POST',
-      headers: {
-        'accept': '*/*', 
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(
-        {
-          "username": username,
-          "password": password
-        },
-        ),
-      },
-      )
-      .then(response => response.json())
-      .then(res => {
-        if (res.token) 
-        {
-          setError(false);
-          navigate("/");
-          userContext.login(username, password, (res.token))
-        } else {
-          setError((res.error));
-          console.log(res); 
-        }
-        
-      })
-    }
-    
-    const onReset = () => {
+    let password = values.password; 
+    const { response } = useLoginUser("kiyan", "kiyan" );
+  }
+  
+  
+  const onReset = () => {
     formRef.current.resetFields();
   };
-
-
+  
+  
   return (
     <div className="login">
       <div className='container'>
-        <Form {...layout} ref={formRef} name="control-ref" onFinish={onFinish}>
+        <Form {...layout} ref={formRef} name="control-ref" onFinish={OnFinish}>
           <Form.Item
-            label={"Don't have an account yet?  Sign Up" 
-            } name="layout">
-      
+            label={"Don't have an account yet?  Sign Up"
+          } name="layout">
+
           </Form.Item>
           {error ? <Divider danger >{error} </Divider> : ""}
           <Form.Item
@@ -96,7 +73,7 @@ function Login() {
           </Form.Item>
           <Form.Item {...tailLayout}>
             <Space>
-              <Button type="primary" htmlType="submit" onClick={onFinish}>
+              <Button type="primary" htmlType="submit" onClick={OnFinish}>
                 Submit
               </Button>
               <Button htmlType="button" onClick={onReset}>

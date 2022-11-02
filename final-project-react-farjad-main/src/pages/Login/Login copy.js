@@ -1,5 +1,5 @@
 import './Login.css';
-import { Button, Form, Input , Space, Divider } from 'antd';
+import { Button, Form, Input, Space, Divider } from 'antd';
 import React, { useState, useRef, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import { LoginContext } from "../../LoginContext";
@@ -20,8 +20,7 @@ const tailLayout = {
   },
 };
 
-function SignUp() {
-  const token = (JSON.parse(localStorage.user).token);
+function Login() {
   let navigate = useNavigate();
   const userContext = useContext(LoginContext)
   const [error, setError] = useState(false)
@@ -30,22 +29,17 @@ function SignUp() {
   const formRef = useRef();
   const baseURL =  "https://kiyan.ir/api/v1" 
   const onFinish = (values) => {
-    var username = values.username;
-    var firstname = values.firstname;
-    var lastname = values.lastname;
-    var password = values.password;
-    fetch('https://kiyan.ir/api/v1/users', {
+    let username = values.username;
+    let password = values.password;
+    fetch('https://kiyan.ir/api/v1/login', {
       method: 'POST',
       headers: {
-        'accept': '*/*' ,
+        'accept': '*/*', 
         'Content-Type': 'application/json',
-        "Authorization": `Bearer ${token}`, // notice the Bearer before your token
       },
       body: JSON.stringify(
         {
           "username": username,
-          "firstname": firstname,
-          "lastname": lastname ,
           "password": password
         },
         ),
@@ -53,61 +47,38 @@ function SignUp() {
       )
       .then(response => response.json())
       .then(res => {
-        if (res.token) 
+    if (res.token) 
         {
-        setError(false);
-        navigate("/");
-        userContext.signup(username, firstname, lastname, password)
+          setError(false);
+          navigate("/");
+          console.log(res); 
+          userContext.login(username, password, (res.token))
         } else {
-          
           setError((res.error));
           console.log(res); 
-          
         }
         
       })
-      console.log(username, firstname, lastname, password)
-    console.log(token);
-  }
-  
-  const onReset = () => {
+    }
+    
+    const onReset = () => {
     formRef.current.resetFields();
   };
 
+
   return (
-    <div className="sign-up">
+    <div className="login">
       <div className='container'>
-        <Form {...layout} ref={formRef} name="control-ref" onFinish={onFinish} >
-          <Form.Item 
-            label={"Sign Up Form / Create new account" 
+        <Form {...layout} ref={formRef} name="control-ref" onFinish={onFinish}>
+          <Form.Item
+            label={"Don't have an account yet?  Sign Up" 
             } name="layout">
+      
           </Form.Item>
-          <Divider tooltip="true" orientation="center" >{error} </Divider> 
+          {error ? <Divider danger >{error} </Divider> : ""}
           <Form.Item
             name="username"
             label="username"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="firstname"
-            label="firstname"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="lastname"
-            label="lastname"
             rules={[
               {
                 required: true,
@@ -140,4 +111,4 @@ function SignUp() {
     </div>
   );
 }
-export default SignUp;
+export default Login;

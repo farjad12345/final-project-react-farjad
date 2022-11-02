@@ -5,8 +5,11 @@
     flex-wrap: wrap;
     height: 100%;
     overflow: scroll;
-    background-color: rgb(207, 201, 201);
 
+}
+.userList .ant-card-bordered{
+    box-shadow: 3px 3px 7px 10px darkgray;
+    border-radius: 10px;
 }
   .card-wrapper-userlist{
     height: 300px;
@@ -16,8 +19,4 @@ justify-content: center;
 padding:10px;
 margin: 10px;
 
-}
-.userList .ant-card-bordered{
-    box-shadow: 3px 3px 7px 10px darkgray;
-    border-radius: 10px;
 }

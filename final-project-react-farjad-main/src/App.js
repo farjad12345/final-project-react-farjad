@@ -6,6 +6,9 @@ import Login from "./pages/Login/Login";
 import SignUp from "./pages/Login/SignUp";
 import UserList from "./pages/UserList/UserList";
 import User from "./pages/User/User";
+import Gallery from "./pages/Gallery/Gallery";
+import AboutUs from "./pages/AboutUs/AboutUs";
+import Technology from "./pages/Technology/Technology";
 import { LoginContext } from "./LoginContext";
 
 
@@ -19,9 +22,11 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="user/:userId" element={<User />} />
           <Route path="signup" element={<SignUp />} />
-
-        </Route>
-      </Routes>
+          <Route path="gallery" element={<Gallery />} />
+          <Route path="aboutus" element={<AboutUs />} />
+          <Route path="technology" element={<Technology />} />
+          </Route>
+        </Routes>
     </BrowserRouter >
 
 

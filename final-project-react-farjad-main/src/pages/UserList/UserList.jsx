@@ -1,6 +1,7 @@
 import "./UserList.css";
 import React, { useEffect, useState } from "react";
 import { Card, Avatar } from "antd";
+import { Link } from "react-router-dom";
 
 function User() {
 
@@ -27,11 +28,11 @@ function User() {
   return (
     <div className="userList">
       {users.map((user) => (
-        <div className="card-wrapper-userlist">
+        <div className="card-wrapper-userlist" key={user.id}>
           <Card
             key={user.id}
             title={user.firstname + " " + user.lastname}
-            extra={<a href={`user/${user.id}`}>More</a>}
+            extra={<Link to={`user/${user.id}`}>More</Link>}
             style={{ width: 300 }}
           >
             <p>{user.id}</p>
