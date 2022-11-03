@@ -18,17 +18,6 @@ function reducer(state, action) {
         case 'logout':
             localStorage.removeItem("user");
             return false;
-        case 'signup':
-            const signupUser = {
-                username: action.username,
-                firstname: action.firstname,
-                lastname: action.lastname,
-                password: action.password,
-            }
-            // localStorage.setItem("user", JSON.stringify(signupUser))
-
-            return true;
-
         default:
             throw new Error();
     }
