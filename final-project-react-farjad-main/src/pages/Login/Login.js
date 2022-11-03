@@ -3,7 +3,6 @@ import { Button, Form, Input, Space, Divider } from 'antd';
 import React, { useState, useRef, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import { LoginContext } from "../../LoginContext";
-import { useLoginUser } from "../../Components/Hook/UseAPi";
 
 const layout = {
 
@@ -22,34 +21,53 @@ const tailLayout = {
 };
 
 function Login() {
-  let username, password
   let navigate = useNavigate();
   const userContext = useContext(LoginContext)
   const [error, setError] = useState(false)
-  
-  
+
+
   const formRef = useRef();
-  
-  // const ApiGetUsers = useLoginUser("kiyan","kiyan")
-  const  OnFinish=(values)=> {
+  const baseURL = "https://kiyan.ir/api/v1/login"
+  const onFinish = (values) => {
     let username = values.username;
-    let password = values.password; 
-    const { response } = useLoginUser("kiyan", "kiyan" );
+    let password = values.password;
+    fetch(baseURL, {
+      method: 'POST',
+      headers: {
+        'accept': '*/*',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(
+        {
+          "username": username,
+          "password": password
+        },
+      ),
+    },
+    )
+      .then(response => response.json())
+      .then(res => {
+        if (res.token) {
+          setError(false);
+          navigate("/");
+          userContext.login(username, password, (res.token))
+        } else {
+          setError((res.error));
+        }
+
+      })
   }
-  
-  
+
   const onReset = () => {
     formRef.current.resetFields();
   };
-  
-  
   return (
     <div className="login">
       <div className='container'>
-        <Form {...layout} ref={formRef} name="control-ref" onFinish={OnFinish}>
+        <Form {...layout} ref={formRef} name="control-ref" onFinish={onFinish}>
           <Form.Item
             label={"Don't have an account yet?  Sign Up"
-          } name="layout">
+            } name="layout">
 
           </Form.Item>
           {error ? <Divider danger >{error} </Divider> : ""}
@@ -73,7 +91,7 @@ function Login() {
           </Form.Item>
           <Form.Item {...tailLayout}>
             <Space>
-              <Button type="primary" htmlType="submit" onClick={OnFinish}>
+              <Button type="primary" htmlType="submit" onClick={onFinish}>
                 Submit
               </Button>
               <Button htmlType="button" onClick={onReset}>

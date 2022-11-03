@@ -4,7 +4,6 @@ import {
   UserAddOutlined,
   UserSwitchOutlined,
   InfoCircleOutlined,
-  MailOutlined,
   CameraOutlined,
   DatabaseTwoTone,
 } from "@ant-design/icons";
@@ -43,12 +42,11 @@ const items = [
 const MenuLeft = () => {
   const [current, setCurrent] = useState("Users");
   const onClick = (e) => {
-    console.log("click ", e);
     setCurrent(e.key);
   };
   return (
     <Menu
-      url
+      
       onClick={onClick}
       selectedKeys={[current]}
       items={items}

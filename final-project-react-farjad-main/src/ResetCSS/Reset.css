@@ -6,5 +6,12 @@ html, body {
   margin: 0;
   padding: 0;
 }
+/* style for Spiner  */
+.Spiner{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50% ) scale(4);
+}
 
 

@@ -1,24 +1,6 @@
-import { Button, Form, Input, Space, Divider } from 'antd';
-import React, { useState, useRef, useContext } from 'react';
+import React, { useState, useRef,  } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
-
-
-
-const layout = {
-
-    labelCol: {
-        span: 6,
-    },
-    wrapperCol: {
-        span: 16.5,
-    },
-};
-const tailLayout = {
-    wrapperCol: {
-        offset: 8,
-        span: 16,
-    },
-};
+import "./EditUserData.css"
 
 function EditUserData({ setshowEditForm }) {
     let navigate = useNavigate();
@@ -29,27 +11,29 @@ function EditUserData({ setshowEditForm }) {
     const formRef = useRef();
     let { userId } = useParams();
 
-    const onFinish = (values) => {
-        
-        let id = values.id;
-        let username = values.username;
-        let firstname = values.firstname;
-        let lastname = values.lastname;
-        
+    function handelSubmit(e) {
+        e.preventDefault();
+        const id = e.target.id.value;
+        const username = e.target.username.value;
+        const firstname = e.target.firstname.value;
+        const lastname = e.target.lastname.value;
+        console.log(id, username, firstname, lastname);
+
+
         const baseURL =
             `https://kiyan.ir/api/v1/users/${userId}`
         fetch(baseURL, {
-            method: 'PUT',
+            method:'PUT',
             headers: {
-                'accept': 'application/json',
-                "Authorization": `Bearer ${token}`, // notice the Bearer before your token
+                'accept':'application/json',
+                "Authorization":`Bearer ${token}`, 
             },
             body: JSON.stringify(
                 {
-                    "id": id,
-                    "username": username,
-                    "firstname": firstname,
-                    "lastname": lastname,
+                    "id":id,
+                    "username":username,
+                    "firstname":firstname,
+                    "lastname":lastname,
                 },
             ),
         },
@@ -58,87 +42,89 @@ function EditUserData({ setshowEditForm }) {
             .then(res => {
                 if (res.token) {
                     setError(false);
-                    console.log(res);
                 } else {
                     setError((res.error));
-                    console.log(res);
+                    console.log(error);
                 }
 
             })
             .then(navigate("/"))
-        }
 
-
+    }
     const onReset = () => {
-        formRef.current.resetFields();
+        formRef.current.reset();
+
     };
+
     return (
         <div className="signUp">
             <div className='container'>
-                <Form {...layout} ref={formRef} name="control-ref" >
-                  
-                    <Form.Item
-                        label={ "Edit User Form:"
-                        } name="layout">
-                    </Form.Item>
-                    <Divider tooltip="true" orientation="center" >{error} </Divider>
-                    <Form.Item
-                        label="id"
-                        name="id"
-                        rules={[{ required: true, message: 'Please input your password!' }]}
-                    >
-                        <Input />
-                    </Form.Item>
-                    <Form.Item
-                        name="username"
-                        label="username"
-                        rules={[
-                            {
-                                required: true,
-                            },
-                        ]}
-                    >
-                        <Input />
-                    </Form.Item>
-                    <Form.Item
-                        name="firstname"
-                        label="firstname"
-                        rules={[
-                            {
-                                required: true,
-                            },
-                        ]}
-                    >
-                        <Input />
-                    </Form.Item>
-                    <Form.Item
-                        name="lastname"
-                        label="lastname"
-                        rules={[
-                            {
-                                required: true,
-                            },
-                        ]}
-                    >
-                        <Input />
-                    </Form.Item>
+                <form className="signInForm" ref={formRef} onSubmit={handelSubmit}>
+                    <h1 className="title">Edit user</h1>
+                    <div className='input-part'>
+                        <label className="label" htmlFor="id">
+                            id:
+                        </label>
+                        <input
+                            type="text"
+                            id="id"
+                            name="id"
+                            className="input"
+                        />
+                    </div>
+                    <div className='input-part'>
+                        <label className="label" htmlFor="username">
+                            username:
+                        </label>
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            className="input"
 
-                    <Form.Item {...tailLayout}>
-                        <Space>
-                            <Button type="primary" htmlType="submit" onClick={onFinish}>
-                                Submit
-                            </Button>
-                            <Button htmlType="button" onClick={onReset}>
-                                Reset
-                            </Button>
-                            <Button htmlType="button" onClick={() => setshowEditForm(setshowEditForm(false))}>
-                                Cancel
-                            </Button>
+                        />
+                    </div>
+                    <div className='input-part'>
+                        <label className="label" htmlFor="firstname">
+                            firstname:
+                        </label>
+                        <input
+                            type="text"
+                            id="firstname"
+                            name="firstname"
+                            className="input"
 
-                        </Space>
-                    </Form.Item>
+                        />
+                    </div>
+                    <div className='input-part'>
+                        <label className="label" htmlFor="lastname">
+                            lastname:
+                        </label>
+                        <input
+                            type="text"
+                            id="lastname"
+                            name="lastname"
+                            className="input"
 
-                </Form>
+                        />
+
+                    </div>
+                    <div className='button-wrapper-parent'>
+                        <div className='button-wrapper'>
+                            <button type="submit" >
+                                edit
+                            </button>
+                            <button type="button" onClick={() => setshowEditForm(setshowEditForm(false))} >
+                                cancel
+                            </button>
+                            <button type="button" onClick={onReset}>
+                                reset
+                             </button>
+                        </div>
+                    </div>
+                </form>
+
+
             </div>
         </div>
     );

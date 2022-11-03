@@ -28,25 +28,23 @@ function SignUp() {
 
 
   const formRef = useRef();
-  const baseURL =  "https://kiyan.ir/api/v1" 
   const onFinish = (values) => {
-    var username = values.username;
-    var firstname = values.firstname;
-    var lastname = values.lastname;
-    var password = values.password;
+    const username = values.username;
+    const firstname = values.firstname;
+    const lastname = values.lastname;
+    const password = values.password;
     fetch('https://kiyan.ir/api/v1/users', {
       method: 'POST',
       headers: {
         'accept': '*/*' ,
+        "Authorization": `Bearer ${token}`, },
         'Content-Type': 'application/json',
-        "Authorization": `Bearer ${token}`, // notice the Bearer before your token
-      },
       body: JSON.stringify(
         {
-          "username": username,
-          "firstname": firstname,
-          "lastname": lastname ,
-          "password": password
+          "username":username,
+          "firstname":firstname,
+          "lastname":lastname ,
+          "password":password
         },
         ),
       },
@@ -61,13 +59,11 @@ function SignUp() {
         } else {
           
           setError((res.error));
-          console.log(res); 
           
         }
         
       })
-      console.log(username, firstname, lastname, password)
-    console.log(token);
+
   }
   
   const onReset = () => {
