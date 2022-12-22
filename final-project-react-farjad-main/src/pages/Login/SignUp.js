@@ -36,9 +36,10 @@ function SignUp() {
     fetch('https://kiyan.ir/api/v1/users', {
       method: 'POST',
       headers: {
-        'accept': '*/*' ,
-        "Authorization": `Bearer ${token}`, },
+        'accept': '*/*',
+        "Authorization": `Bearer ${token}`,
         'Content-Type': 'application/json',
+      },
       body: JSON.stringify(
         {
           "username":username,
@@ -51,11 +52,10 @@ function SignUp() {
       )
       .then(response => response.json())
       .then(res => {
-        if (res.token) 
+        if (res.command=  'INSERT') 
         {
         setError(false);
         navigate("/");
-        userContext.signup(username, firstname, lastname, password)
         } else {
           
           setError((res.error));
@@ -121,7 +121,7 @@ function SignUp() {
           </Form.Item>
           <Form.Item {...tailLayout}>
             <Space>
-              <Button type="primary" htmlType="submit" onClick={onFinish}>
+              <Button type="primary" htmlType="submit" >
                 Submit
               </Button>
               <Button htmlType="button" onClick={onReset}>

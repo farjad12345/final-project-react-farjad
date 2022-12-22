@@ -6,7 +6,6 @@ import EditUserData from "./EditUserData/EditUserData";
 import Spiner from "../../Components/Spiner/Spiner"
 function User() {
   let navigate = useNavigate();
-
       const [open, setOpen] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [showEditForm, setshowEditForm] = useState(false);
@@ -20,7 +19,7 @@ function User() {
     fetch(baseURL, {
       method: "DELETE",
       headers: {
-        Authorization: `Bearer ${token}`, // notice the Bearer before your token
+        Authorization: `Bearer ${token}`, 
 
         "Content-Type": " application/json",
       },
@@ -74,8 +73,11 @@ function User() {
           >
             <p>{user.id}</p>
             <p>
-              firstname: {user.firstname}{" "}
-              {<Avatar src="https://joeschmoe.io/api/v1/random" />}
+              firstname: {user.firstname}
+              <Avatar
+                src="https://randomuser.me/api/portraits/men/25.jpg"
+                id="avatar"
+              />
             </p>
             <p>lastname: {user.lastname}</p>
             <Space>
@@ -112,10 +114,9 @@ function User() {
           )}
         </div>
       ) : (
-          <div className=" Spiner">
-            <Spiner  />
-
-          </div>
+        <div className=" Spiner">
+          <Spiner />
+        </div>
       )}
     </div>
   );

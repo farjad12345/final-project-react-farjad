@@ -38,8 +38,8 @@ function User() {
               <p>{user.id}</p>
               <p>{user.password}</p>
               <p>
-                firstname: {user.firstname}{" "}
-                {<Avatar src="https://joeschmoe.io/api/v1/random" />}
+                firstname: {user.firstname} 
+                <Avatar src="https://randomuser.me/api/portraits/men/25.jpg"  id="avatar"/>
               </p>
               <p>lastname: {user.lastname}</p>
             </Card>
