@@ -43,7 +43,6 @@ export default function useApi(request) {
         fetchData();
     }, []);
 
-    return [state, setState];
 }
 
 export const useUsers = () => useApi(apiGetUsers())

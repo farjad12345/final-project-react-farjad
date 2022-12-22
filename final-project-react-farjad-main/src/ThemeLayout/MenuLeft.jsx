@@ -17,12 +17,12 @@ const items = [
     icon: <UserSwitchOutlined />,
   },
   {
-    label: <Link to="/signup">SignUp</Link>,
+    label: <Link to="/signup">Add User</Link>,
     key: "addAccount",
     icon: <UserAddOutlined />,
   },
   {
-    label: <Link to="/aboutus">About us</Link>,
+    label: <Link to="/aboutus">About Us</Link>,
     key: "aboutus",
     icon: <InfoCircleOutlined />,
 

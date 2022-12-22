@@ -10,11 +10,23 @@ import Gallery from "./pages/Gallery/Gallery";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import Technology from "./pages/Technology/Technology";
 import { LoginContext } from "./LoginContext";
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: false,
+    },
+  },
+});
 
 
 function App() {
   const userContext = useContext(LoginContext);
   return (
+    <QueryClientProvider client={queryClient}>
+
     <BrowserRouter>
       <Routes>
         <Route path="/" element={userContext.isLogin ? <ThemeLayout /> : <Login />}>
@@ -27,7 +39,9 @@ function App() {
           <Route path="technology" element={<Technology />} />
           </Route>
         </Routes>
-    </BrowserRouter >
+      </BrowserRouter >
+    </QueryClientProvider>
+
 
 
   );

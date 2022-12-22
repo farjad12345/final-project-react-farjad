@@ -2,7 +2,6 @@ import React, { useState, useRef,  } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 import "./EditUserData.css"
 function EditUserData({ setshowEditForm }) {
-    const [UserId,setUserId]=useState()
     let navigate = useNavigate();
 
     const token = (JSON.parse(localStorage.user).token);
@@ -26,7 +25,7 @@ function EditUserData({ setshowEditForm }) {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
-            id: id,
+            id: userId,
             username: username,
             firstname: firstname,
             lastname: lastname,
@@ -35,14 +34,14 @@ function EditUserData({ setshowEditForm }) {
           .then((response) => response.json())
           .then((res) => {
             console.log(res);
-            if (res===1) {
+            if (res === 1) {
               setError(false);
-            } else {
-              setError(res.error);
-              console.log(error);
+              (navigate("/"));
+            }
+            else {
+              setError(res);
             }
           })
-          .then(navigate("/"));
 
     }
     const onReset = () => {
@@ -55,17 +54,6 @@ function EditUserData({ setshowEditForm }) {
         <div className="container">
           <form className="signInForm" ref={formRef} onSubmit={handelSubmit}>
             <h1 className="title">Edit user</h1>
-            <div className="input-part">
-              <label className="label" htmlFor="id">
-                id:
-              </label>
-              <input
-                type="text"
-                id="id"
-                name="id"
-                className="input"
-              />
-            </div>
             <div className="input-part">
               <label className="label" htmlFor="username">
                 username:
@@ -101,15 +89,15 @@ function EditUserData({ setshowEditForm }) {
             </div>
             <div className="button-wrapper-parent">
               <div className="button-wrapper">
-                <button type="submit">edit</button>
+                <button type="submit">Save</button>
                 <button
                   type="button"
                   onClick={() => setshowEditForm(setshowEditForm(false))}
                 >
-                  cancel
+                  Cancel
                 </button>
                 <button type="button" onClick={onReset}>
-                  reset
+                  Reset
                 </button>
               </div>
             </div>

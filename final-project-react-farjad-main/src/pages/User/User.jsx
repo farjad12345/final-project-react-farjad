@@ -1,57 +1,55 @@
 import "./User.css";
 import React, { useEffect, useState } from "react";
-import { Card, Avatar, Button, Space, Modal  } from "antd";
+import { Card, Avatar, Button, Space, Modal } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 import EditUserData from "./EditUserData/EditUserData";
-import Spiner from "../../Components/Spiner/Spiner"
+import Spiner from "../../Components/Spiner/Spiner";
 function User() {
   let navigate = useNavigate();
-      const [open, setOpen] = useState(false);
-    const [confirmLoading, setConfirmLoading] = useState(false);
-    const [showEditForm, setshowEditForm] = useState(false);
-    const [modalTextDelete, setmodalTextDelete] = useState(
-      "Are you sure you want to DELETE this user?"
-    );
+
+  const [open, setOpen] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [showEditForm, setshowEditForm] = useState(false);
+  const [modalTextDelete, setmodalTextDelete] = useState(
+    "Are you sure you want to DELETE this user?"
+  );
   const showModal = () => {
     setOpen(true);
-  }
+  };
   const DeleteAPI = () => {
     fetch(baseURL, {
       method: "DELETE",
       headers: {
-        Authorization: `Bearer ${token}`, 
-
+        Authorization: `Bearer ${token}`,
         "Content-Type": " application/json",
-      },
+      }
     })
       .then((response) => response.json())
-    .then(navigate("/"))
-  }
-      const handleDeleteOk = () => {
-        setmodalTextDelete(
-          "The user will be deleted and the modal will be closed after two seconds and return to users page ... "
-        );
-        setConfirmLoading(true);
-        setTimeout(() => {
-          DeleteAPI()
-          setOpen(false);
-          setConfirmLoading(false);
-        }, 2000);
-      };
+      .then(navigate("/"));
+  };
+  const handleDeleteOk = () => {
+    setmodalTextDelete(
+      "The user will be deleted and the modal will be closed after two seconds and return to users page ... "
+    );
+    setConfirmLoading(true);
+    setTimeout(() => {
+      setOpen(false);
+      setConfirmLoading(false);
+      DeleteAPI();
+    }, 2000);
+  };
 
- 
-      const handleCancel = () => {
-        setOpen(false);
-      };
+  const handleCancel = () => {
+    setOpen(false);
+  };
 
   const token = JSON.parse(localStorage.user).token;
 
   let { userId } = useParams();
   const [user, setUsers] = useState(false);
-  const baseURL =
-    `https://kiyan.ir/api/v1/users/${userId}`;
+  const baseURL = `https://kiyan.ir/api/v1/users/${userId}`;
   useEffect(() => {
-    fetch(baseURL , {
+    fetch(baseURL, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`, // notice the Bearer before your token
@@ -61,7 +59,7 @@ function User() {
     })
       .then((response) => response.json())
       .then((res) => setUsers(res));
-  }, [])
+  }, []);
   return (
     <div className="user">
       {user ? (

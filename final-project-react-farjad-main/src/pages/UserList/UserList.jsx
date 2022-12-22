@@ -17,12 +17,14 @@ function User() {
         "Authorization": `Bearer ${token}`, // notice the Bearer before your token
       },
     })
-      .then((response) => response.json())
-      .then(
-        (res) => setUsers(res)
-
+    .then((response) => response.json())
+    .then(
+      (res) => setUsers(res)
+      
       );
-    }, []);
+  }, []
+  );
+    console.log("apicall");
     
   return (
     <div className="userList">
